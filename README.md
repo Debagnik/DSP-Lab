@@ -1,5 +1,5 @@
-[![Build Passing] (https://travis-ci.org/dwyl/esta.svg?branch=master)]
-[![Matlab File Exchange] (https://blogs.mathworks.com/community/files/file_exchange_badge.png)]
+[[Build Passing](https://travis-ci.org/dwyl/esta.svg?branch=master)]
+[[Matlab File Exchange](https://blogs.mathworks.com/community/files/file_exchange_badge.png)]
 
 # Digital Signal Processing Lab For ETC - 06 (And others)
 Contains DSP Lab Codes File(MATLAB Files) Output image(Portable Network Graphics) and lab report(Portable Document Files)
