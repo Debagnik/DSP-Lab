@@ -12,4 +12,5 @@ These are run sucessfully on *MATLAB* compiler may need a few tweaks and changes
 
 #Frequent Errors.
 1. If compiler give error: Invalid Expressions. Make sure that your input sequence is enclosed by brakets (3rd brakets). Eg [1, 2, 3, 4] not 1,2,3,4 nor 1 2 3 4
-2. If compiler give error: 
+2. You Must not change the names of the files those are case sensitive also do not chang the path of the files changing directory will cause unnecessery problems in the codes
+3. If you fave certain problem raise an issue in the issue tab or the badge above. I will try to solve them.
