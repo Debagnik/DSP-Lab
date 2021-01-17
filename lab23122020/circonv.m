@@ -11,12 +11,12 @@ function[y]= circonv(x,h,N)
         x4=x
         x5=[h,zeros(1,N-N2)]
     end
-    y=zeros(1,N);
+    y=zeros(1,N)
     for m=0:N-1
-        y(m+1)=0;
+        y(m+1)=0
         for n=0:N-1
-            j=mod(m-n,N);
-            y(m+1)=y(m+1)+x4(n+1).*x5(j+1);
+            j=mod(m-n,N)
+            y(m+1)=y(m+1)+x4(n+1).*x5(j+1)
         end
     end
 end
