@@ -1,3 +1,6 @@
+% Function for performing DTFT
+% Writtin by Debagnik Kar 1804373
+
 function [X] = dtft(x,n,w)
    
     temp = n'*w;
