@@ -2,8 +2,8 @@
 % Written by Debagnik Kar 1804373
 function [yn] = lenearconv(x,h)
     N = length(x)+length(h)-1
-    Xk = fft0(x,N)
-    Hk = fft0(h,N)
+    Xk = fft(x,N)
+    Hk = fft(h,N)
     Yk = Xk.*Hk
-    yn = ifft0(Yk,length(Yk))
+    yn = ifft(Yk,length(Yk))
 end
