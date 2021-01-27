@@ -1,3 +1,5 @@
+% DFT function dependency
+% Written by Debagnik Kar 1804373
 function Xk = dft0(xn,N)
     L = length(xn)
     if(N<L)

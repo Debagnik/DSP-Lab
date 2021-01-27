@@ -1,28 +1,37 @@
 % main driver file
-
+% written by Debagnik Kar 1804373
+% given sequence [1 8 0 4 3 7 3]
 clear all
 close all
 clc
 
-xn=input('Enter the sequence in [] :');
-
-N=length(xn);
-subplot(3,2,1)
-stem(xn);
-dtft=dft0(xn,N)
-magX=abs(dtft);
-phaseX=angle(dtft);
-subplot(3,2,2)
+xn = input('Enter sequence:')
+N = length(xn)
+subplot 321
+stem(xn)
+title('Input Sequence')
+dtft = dft0(xn,N)
+magX = abs(dtft)
+phaseX = angle(dtft)
+subplot 322
 stem(1:N,xn)
-xlabel('index k'),ylabel('X(k)'),title('DFT')
-subplot(3,2,3)
+xlabel('Index k')
+ylabel('X(k)')
+title('DFT')
+subplot 323
 stem(1:N,magX)
-xlabel('index k'),ylabel('| X(k) |'),title('| DFT |')
-subplot(3,2,4)
+xlabel('Index k')
+ylabel('| X(k) |')
+title('Magnitude Graph')
+subplot 324
 stem(1:N,phaseX)
-xlabel('index k'),ylabel('phase X(k)'),title('phase DFT')
+xlabel('Index k')
+ylabel('Phase X(k)')
+title('Phase Graph')
 
-idtft=idft0(xn,N)
+idtft = idft0(xn,N)
 subplot(3,2,5)
 stem(1:N,abs(idtft))
-xlabel('index n'),ylabel(' x(n)'),title('IDFT')
+xlabel('Index n')
+ylabel('x(n)')
+title('IDFT')
