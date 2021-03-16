@@ -1,71 +1,71 @@
+%Main code for designing FIR Filter
+%Written by Debagnik Kar 1804373
 clear all
 close all
 clc
 
+N = 50
+fs = 1000
+N1 = 300
+n = 0:N1-1
+%signal generation and adding noise
+xn = sin(2*10*pi*n/fs)
+rn = xn+rand(size(n))
+v = input('Enter filter type [1]Lowpass, [2]Highpass, [3]Bandpass, [4]Bandstop:    ')
+cut = input('Enter cutoff frequency:    ')
+switch v
+    case 1
+        fil = 'low'
+    case 2
+        fil = 'high'
+    case 3
+        fil = 'bpf'
+    case 4
+        fil = 'stop'
+end
+figure(1)
+subplot 211
+plot(n,xn)
+title("original sine")
 
-[y, Fs]= audioread('1.m4a') % time signal
-y = y(:,1)
-N=length(y)
-t=0:1/Fs:N/Fs-1/Fs
-t=t'
-Fs=1/(t(2)-t(1))
-Fn=Fs/2
-yf=fft(y,N)
-df = Fs/N % Frequency Resolution
-
-
-plot(t,y)
-grid on
-title('Time Signal')
-ylabel('Amplitude')
-xlabel(['Time Resolution: ',num2str(1/Fs),' s'])
-
-amplH = abs(yf)
-amplitudengang = fftshift(amplH/N)
-
-x_fn = 0 : df : Fn-df
-x_fa = 0 : df : Fs-df
-
+subplot 212
+plot(n,rn)
+title('Noisy sine')
 figure
-stem(x_fa-Fn, amplitudengang, 'b.-')
-axis([-Fn Fn 0 max(amplitudengang)])
-title('Two sided Spectra')
-ylabel('Amplitude')
-xlabel(['Frequency Resolution: ',num2str(df),' Hz'])
-grid
+for prompt = 1:15
+    %Filtering
+    [win, winname] = windowPrompt(prompt,N)
+    fxn = fir1(N,cut,fil,win)
+    [f{prompt},w{prompt}]=freqz(fxn)
+    subplot 211
+    plot(w{prompt},20*log10(abs(f{prompt})),'markeredgecolor',[rand() rand() rand()])
+    title('frequency response')
+    xlabel('Normalized Frequency (x ? rad/sample)','fontweight','bold')
+    ylabel('Magnitude (dB)','fontweight','bold')
+    legend(["barthannwin", "bartlett", "blackmanharris" "blackman" "bohmanwin" "chebwin" "flattopwin" "gausswin" "hamming" "hann" "kaiser" "nuttallwin" "parzenwin" "rectwin" "tukeywin" "triang"])
+    hold on
+    grid on
+    subplot 212
+    plot(w{prompt},unwrap(angle(f{prompt})),'markeredgecolor',[rand() rand() rand()])
+    hold on
+    xlabel('Normalized Frequency (x ? rad/sample)','fontweight','bold')
+    ylabel('phase (degrees)','fontweight','bold')
+    grid on
+    legend(["barthannwin", "bartlett", "blackmanharris" "blackman" "bohmanwin" "chebwin" "flattopwin" "gausswin" "hamming" "hann" "kaiser" "nuttallwin" "parzenwin" "rectwin" "tukeywin" "triang"])
+end
+hold off
 
-amplitudengang=[amplitudengang(513) amplitudengang(514:end).*2]
-
-figure
-stem([0:df:(Fn-df)], amplitudengang, 'b.-')
-axis([0 Fn 0 max(amplitudengang)])
-title('Single Sided Spectra')
-ylabel('Amplitude')
-xlabel(['Frequency Resolution: ',num2str(df),'Hz'])
-grid
-
-amp10=amplitudengang(1:round((10-df)/df))
-amp20=amplitudengang(round((10-df)/df):round((20-df)/df))
-amp30=amplitudengang(round((20-df)/df):round((30-df)/df))
-amp40=amplitudengang(round((30-df)/df):round((40-df)/df))
-amp50=amplitudengang(round((40-df)/df):round((50-df)/df))
-
-rms10=amp10./sqrt(2)
-rms20=amp20./sqrt(2)
-rms30=amp30./sqrt(2)
-rms40=amp40./sqrt(2)
-rms50=amp50./sqrt(2)
-
-rms10=sqrt((rms10(1)/2)^2+sum(rms10(2:(end-1)).^2)+(rms10(end)/2)^2)
-rms20=sqrt((rms20(1)/2)^2+sum(rms20(2:(end-1)).^2)+(rms20(end)/2)^2)
-rms30=sqrt((rms30(1)/2)^2+sum(rms30(2:(end-1)).^2)+(rms30(end)/2)^2)
-rms40=sqrt((rms40(1)/2)^2+sum(rms40(2:(end-1)).^2)+(rms40(end)/2)^2)
-rms50=sqrt((rms50(1)/2)^2+sum(rms50(2:(end-1)).^2)+(rms50(end)/2)^2)
-
-figure
-stem([5 15 25 35 45],[rms10,rms20,rms30,rms40,rms50])
-axis([0 Fn 0 max([rms10,rms20,rms30,rms40,rms50])])
-title('RMS values per 10Hz')
-ylabel('Amplitude')
-xlabel(['Frequency in Hz'])
-grid on
+%plotting results
+figure(3)
+for prompt = 1:16
+    [win, WinName] = windowPrompt(prompt,N)
+    fxn = fir1(N,cut,fil,win)
+    yn = filter(win,1,rn)
+    plot(n,yn,'markeredgecolor',[rand() rand() rand()])
+    hold on
+    title("Filtered Output")
+    xlabel('Time--->','fontweight','bold')
+    ylabel('Magnitude (dB)','fontweight','bold')
+    grid on
+    legend(["barthannwin", "bartlett", "blackmanharris" "blackman" "bohmanwin" "chebwin" "flattopwin" "gausswin" "hamming" "hann" "kaiser" "nuttallwin" "parzenwin" "rectwin" "tukeywin" "triang"])
+end

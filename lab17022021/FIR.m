@@ -22,13 +22,13 @@ end
 switch prompt1
     case 1
         fil = "low"
-        cut = 0.3
+        cut = 0.4
     case 2
         fil = 'high'
-        cut = 0.6
+        cut = 0.8
     case 3
         fil = "bpf"
-        cut = [0.2 0.5]
+        cut = [0.2 0.8]
     otherwise
         disp('error 2')
 end
@@ -37,16 +37,16 @@ fs = 1000
 N1 = 300
 n = 0:N1-1
 %signal generation and adding noise
+xn = sin(2*10*pi*n/fs)
+rn = xn+rand(size(n))
+figure(1)
+subplot 211
+plot(n,xn)
+title("original sine")
 
-xn = sin(20*pi*n/fs)
-%figure(1)
-%subplot 211
-%plot(n,xn)
-%title("original sine")
-rn = xn+rand(size(xn))
-%subplot 212
-%plot(n,rn)
-%title('Noisy sine')
+subplot 212
+plot(n,rn)
+title('Noisy sine')
 
 %Filtering
 fxn = fir1(N,cut,fil,win)
