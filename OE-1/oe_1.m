@@ -1,5 +1,3 @@
-%Main code for designing FIR Filter
-%Written by Debagnik Kar 1804373
 clear all
 close all
 clc
